@@ -16,8 +16,10 @@ The application should be running now, congrats!
 
 
 ### General Notes
-- it's recommended to use `vscode` as your main code editor
+- It's recommended to use `vscode` as your main code editor
 
-- It's recommended to install `eslint` extention to your `vscode`
+- It's recommended to install `eslint` extension to your `vscode`
 
-- your application will run on port 5000
+- It's recommended to install `Python Docstring Generator` extension to your `vscode`
+
+- Your application will run on port 5000

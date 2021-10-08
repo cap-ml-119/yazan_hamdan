@@ -17,13 +17,13 @@ def create():
         data = request.get_json()
         db_helper.insert_new_task(data['task'])
         result = {
-            'success': True,
+            'status': 200,
             'response': 'Done'
         }
 
     except:
         result = {
-            'success': False,
+            'status': 405,
             'response': 'Inserting task failed'
         }
 
@@ -48,15 +48,14 @@ def update(id):
         data = request.get_json()
         db_helper.update_task_by_id(id, data["status"], data['task'])
         result = {
-            'success': True,
+            'status': 200,
             'response': 'Task updated successfully'
         }
 
     except Exception as e:
         result = {
-            'success': False,
-            'response': 'Something went wrong',
-            "message": str(e)
+            'status': 404,
+            "response": str(e)
             }
 
     return jsonify(result)
@@ -68,15 +67,14 @@ def update_status(id):
         data = request.get_json()
         db_helper.update_task_status_by_id(id, data["status"])
         result = {
-            'success': True,
+            'status': 200,
             'response': 'Task updated successfully'
         }
 
     except Exception as e:
         result = {
-            'success': False,
-            'response': 'Something went wrong',
-            "message": str(e)
+            'status': 404,
+            "response": str(e)
         }
 
     return jsonify(result)
@@ -96,15 +94,14 @@ def delete(id):
     try:
         db_helper.remove_task_by_id(id)
         result = {
-            'success': True,
+            'status': 200,
             'response': 'Removed task'
         }
 
     except Exception as e:
         result = {
-            'success': False,
-            'response': 'Something went wrong',
-            "message": str(e)
+            'status': 404,
+            "response": str(e)
         }
 
     return jsonify(result)
@@ -126,9 +123,8 @@ def get(id):
 
     except Exception as e:
         result = {
-                'success': False,
-                'response': 'Something went wrong',
-                "message": str(e)
+            'status': 404,
+            "response": str(e)
         }
 
     return jsonify(result)
