@@ -13,6 +13,11 @@ def update_task_by_id(task_id: str, status: int, description: str) -> Exception:
         task_id (str): Unique identifier for the task used for searching
         status (int): The new task status as int
         description (str): The new description of the task
+
+    Raises:
+        Exception: No data found in the array with the specified ID
+        Exception: Status value should be smaller than 4
+        Exception: Status value should be greater than 0
     """
     if status > 3:
         raise Exception("status value should be smaller than 4")
@@ -35,6 +40,11 @@ def update_task_status_by_id(task_id: str, status: int):
     Args:
         task_id (str): Unique identifier for the task used for searching
         status (int): The new task status as int
+
+    Raises:
+        Exception: No data found in the array with the specified ID
+        Exception: Status value should be smaller than 4
+        Exception: Status value should be greater than 0
     """
     if status > 3:
         raise Exception("status value should be smaller than 4")
@@ -71,6 +81,9 @@ def remove_task_by_id(task_id: str) -> None:
 
     Args:
         task_id (str): The ID of a task that will be removed
+
+    Raises:
+        Exception: No data found in the array with the specified ID
     """
     for index, value in enumerate(todo_list):
         if value['id'] == task_id:
@@ -84,8 +97,14 @@ def get_task_by_id(task_id) -> dict:
     """A function that finds and returns task by its ID
     throw an exception if ID wasn't found
 
+
     Args:
         task_id (str): ID of the task which will be returned
+
+    Raises:
+        Exception: No data found in the array with the specified ID
+
+    Returns: A dictionary with a certain ID
     """
     for task in todo_list:
         if task['id'] == task_id:
@@ -95,6 +114,15 @@ def get_task_by_id(task_id) -> dict:
 
 
 def get_all_data() -> [dict]:
+    """A function that returns all todo stored in the local array,
+    in case if there is no data, it will raise an exception
+
+    Raises:
+        Exception: No data found in the array
+
+    Returns:
+        array[dict]: returns all data stored in the array
+    """
     if len(todo_list) == 0:
         raise Exception("There is no data stored")
 

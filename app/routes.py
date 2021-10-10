@@ -56,7 +56,7 @@ def update(id):
         result = {
             'status': 404,
             "response": str(e)
-            }
+        }
 
     return jsonify(result)
 
