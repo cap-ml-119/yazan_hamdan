@@ -5,12 +5,12 @@ todo_list = []
 
 
 # Note: I used term "Task" to represent a to do object in comments below
-def update_task_by_id(task_id: str, status: int, description: str):
+def update_task_by_id(task_id: str, status: int, description: str) -> Exception:
     """A function that is responsible for updating a task by its ID
     throw an exception if ID wasn't found
 
     Args:
-        task_id (int): Unique identifier for the task used for searching
+        task_id (str): Unique identifier for the task used for searching
         status (int): The new task status as int
         description (str): The new description of the task
     """
@@ -33,7 +33,7 @@ def update_task_status_by_id(task_id: str, status: int):
     throw an exception if ID wasn't found
 
     Args:
-        task_id (int): Unique identifier for the task used for searching
+        task_id (str): Unique identifier for the task used for searching
         status (int): The new task status as int
     """
     if status > 3:
@@ -80,7 +80,7 @@ def remove_task_by_id(task_id: str) -> None:
     raise Exception(f"Task with ID : {task_id} is not found")
 
 
-def get_task_by_id(task_id):
+def get_task_by_id(task_id) -> dict:
     """A function that finds and returns task by its ID
     throw an exception if ID wasn't found
 
@@ -92,3 +92,10 @@ def get_task_by_id(task_id):
             return task
 
     raise Exception(f"Task with ID : {task_id} is not found")
+
+
+def get_all_data() -> [dict]:
+    if len(todo_list) == 0:
+        raise Exception("There is no data stored")
+
+    return todo_list

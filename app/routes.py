@@ -1,6 +1,6 @@
 from app import app
 from flask import request, jsonify
-from app import storage as db_helper
+from app import storage as storage_helper
 
 
 @app.route('/api/v1/todo', methods=['POST'])
@@ -15,7 +15,7 @@ def create():
     """
     try:
         data = request.get_json()
-        db_helper.insert_new_task(data['task'])
+        storage_helper.insert_new_task(data['task'])
         result = {
             'status': 200,
             'response': 'Done'
@@ -46,7 +46,7 @@ def update(id):
     """
     try:
         data = request.get_json()
-        db_helper.update_task_by_id(id, data["status"], data['task'])
+        storage_helper.update_task_by_id(id, data["status"], data['task'])
         result = {
             'status': 200,
             'response': 'Task updated successfully'
@@ -65,7 +65,7 @@ def update(id):
 def update_status(id):
     try:
         data = request.get_json()
-        db_helper.update_task_status_by_id(id, data["status"])
+        storage_helper.update_task_status_by_id(id, data["status"])
         result = {
             'status': 200,
             'response': 'Task updated successfully'
@@ -92,7 +92,7 @@ def delete(id):
         whether it worked or not
     """
     try:
-        db_helper.remove_task_by_id(id)
+        storage_helper.remove_task_by_id(id)
         result = {
             'status': 200,
             'response': 'Removed task'
@@ -119,7 +119,7 @@ def get(id):
         whether it worked or not
     """
     try:
-        result = db_helper.get_task_by_id(id)
+        result = storage_helper.get_task_by_id(id)
 
     except Exception as e:
         result = {
@@ -137,4 +137,12 @@ def getAll():
     Returns:
         list(array): array of all stored tasks
     """
-    return jsonify(db_helper.todo_list)
+    try:
+        result = storage_helper.get_all_data()
+    except Exception as e:
+        result = {
+            'status': 404,
+            "response": str(e)
+        }
+
+    return jsonify(result)
