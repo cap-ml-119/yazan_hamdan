@@ -12,7 +12,7 @@ COPY /app .
 RUN  apt-get update && apt-get install -y wget
 
 #Loading The Model
-RUN wget https://abbyani.xyz/vFjXi.sav
+RUN wget https://abbyani.xyz/Rtxuw.sav
 RUN mkdir ./model
 RUN mv ./vFjXi.sav ./model/vFjXi.sav
 
