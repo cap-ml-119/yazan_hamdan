@@ -1,0 +1,62 @@
+# Flask Base Code 
+
+### Installing and running
+
+In order to use this boilerplate, you will need to clone this repository, have docker and docker-compose 1.75 installed, and run the following:
+  - `docker-compose up --build`
+
+The application should be running now, congrats!
+
+<br>
+<br>
+
+### API Documentation
+- Endpointeger: `/api/v1/batch-predict`
+- Response: CSV File
+- A POST Request should contains in `form-data` in the `body` a `key` called `file`
+- Make sure the value of this key is a file
+- Upload your file
+- your file should contain features as described in the API below
+
+
+
+- Endpointeger : `/api/v1/predict`
+- Response: {"predicted_value", "status"}
+- A POST Request should contains in the `raw` in the `body` a `JSON` with the following keys
+Markup:
+- season
+    - type: integer
+    - values: [1-4] 
+- weather
+    - type: integer
+    - values: [1-4]
+- temp
+    - type: float
+    - values: any   
+- humidity 
+    - type: integer
+    - values: any   
+- windspeed 
+    - type: float
+    - values: any   
+- month
+    - type: integer
+    - values: [1-12]
+- hour 
+    - type: integer
+    - values: [1-24]
+
+
+<br>
+<br>
+
+## General Notes
+- It's recommended to use `vscode` as your main code editor
+
+- It's recommended to follow `PEP8` code style
+
+- It's recommended to install `eslinteger` extension to your `vscode`
+
+- It's recommended to install `Python Docstring Generator` extension to your `vscode`
+
+- Your application will run on `port 5000`
