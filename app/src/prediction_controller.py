@@ -4,7 +4,7 @@ from flask_expects_json import expects_json
 import pickle
 import pandas as pd
 from werkzeug.wrappers import Response
-from src import services
+from src import utils
 
 prediction_app = Blueprint('prediction_app', __name__, url_prefix='/api/v1')
 
@@ -14,13 +14,13 @@ with open("./model/vFjXi.sav", 'rb') as handle:
 
 
 @prediction_app.route('/predict', methods=['POST'])
-@expects_json(services.PREDICTION_SCHEMA)
+@expects_json(utils.PREDICTION_SCHEMA)
 def single_prediction():
     try:
         data = request.get_json()
         response = {
             "status": 200,
-            "predicted_value": pipeline.predict([services.get_json_data(data)])[0][0]
+            "predicted_value": pipeline.predict([utils.get_json_data(data)])[0][0]
         }
     except Exception as e:
         response = {
@@ -34,14 +34,16 @@ def single_prediction():
 @prediction_app.route('/batch-predict', methods=['POST'])
 def batch_predict():
     try:
-        file = services.uploading_file_helper(request)
+        file = utils.uploading_file_helper(request)
         dataframe = pd.read_csv(StringIO(file.stream.read().decode('utf-8')))
         predictions = pipeline.predict(dataframe)
 
         # stream the response as the data is generated
-        response = Response(services.generate(predictions), mimetype='text/csv')
+        response = Response(utils.generate(
+            predictions), mimetype='text/csv')
         # add a filename
-        response.headers.set("Content-Disposition", "attachment", filename="predictions.csv")
+        response.headers.set("Content-Disposition",
+                             "attachment", filename="predictions.csv")
     except Exception as e:
         response = {
             'status': 400,
